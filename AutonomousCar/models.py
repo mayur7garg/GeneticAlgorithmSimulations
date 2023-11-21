@@ -52,7 +52,7 @@ class Car:
         brain: Brain
     ):
         self.brain: Brain = brain
-        self.position: list[float, float] = [0, 0]
+        self.position: list[float, float] = [0, Constants.CAR_RADIUS]
         self.velocity: list[float, float] = [0, 0]
 
     def move(self):
@@ -87,5 +87,17 @@ class Car:
         return self
 
     def reset(self):
-        self.position = (0, 0)
-        self.velocity = 0
+        self.position = [0, 0]
+        self.velocity = [0, 0]
+    
+    def __repr__(self) -> str:
+        return f"Car(position = {self.position}, velocity = {self.velocity})"
+
+class Obstacle:
+    def __init__(
+            self,
+            radius: float,
+            position: list[float, float]
+    ) -> None:
+        self.radius: float = radius
+        self.position: list[float, float] = position
