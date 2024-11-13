@@ -35,7 +35,7 @@ def cross_filters(filter_pos1: np.array, filter_pos2: np.array):
         range(filter_count)
     ]
 
-def show_best_worst(
+def get_best_worst(
     pop_filter_pos: np.array,
     img_arr: np.array,
     fitler_arr: np.array,
@@ -47,11 +47,22 @@ def show_best_worst(
     ]
 
     errors = [get_error(img_arr, output_arr) for output_arr in output_arrs]
-    print(f"Best score: {min(errors)} | Worst score: {max(errors)}")
     filter_ranks = np.argsort(errors)
+    return (
+        (output_arrs[filter_ranks[0]], errors[filter_ranks[0]]),
+        (output_arrs[filter_ranks[-1]], errors[filter_ranks[-1]])
+    )
 
-    show_image(output_arrs[filter_ranks[0]], title = f"Error: {errors[filter_ranks[0]]}")
-    show_image(output_arrs[filter_ranks[-1]], title = f"Error: {errors[filter_ranks[-1]]}")
+def show_best_worst(
+    pop_filter_pos: np.array,
+    img_arr: np.array,
+    fitler_arr: np.array,
+    output_size: tuple,
+):
+    (best_out, best_err), (worst_out, worst_err) = get_best_worst(pop_filter_pos, img_arr, fitler_arr, output_size)
+
+    show_image(best_out, title = f"Error: {best_err}")
+    show_image(worst_out, title = f"Error: {worst_err}")
 
 def iterate_gen(
     pop_filter_pos: np.array,
@@ -71,7 +82,6 @@ def iterate_gen(
     ]
 
     errors = [get_error(img_arr, output_arr) for output_arr in output_arrs]
-    print(f"Best score: {min(errors)} | Worst score: {max(errors)}")
     filter_ranks = np.argsort(errors)
 
     new_pop_filter_pos = []
