@@ -1,0 +1,13 @@
+{
+	"name": "AutonomousCar",
+	"dockerComposeFile": ["../../docker-compose.yml"],
+	"service": "autonomous-car",
+	"workspaceFolder": "/src",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python"
+            ]
+        }
+    }
+}

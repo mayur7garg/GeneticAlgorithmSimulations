@@ -1,0 +1,19 @@
+version: "3.9"
+name: "genetic-algo-simulations"
+services:
+  autonomous-car:
+    build: ./AutonomousCar/
+    image: autonomous-car:latest
+    volumes:
+      - ./AutonomousCar:/src
+    tty: true
+    command: /bin/bash
+    container_name: autonomous-car
+  picture-builder:
+    build: ./PictureBuilder/
+    image: picture-builder:latest
+    volumes:
+      - ./PictureBuilder:/src
+    tty: true
+    command: /bin/bash
+    container_name: picture-builder
